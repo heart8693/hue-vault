@@ -13,6 +13,7 @@
     --ink:#EDEDEF; --ink-2:#8F8F98; --ink-3:#55555E;
     --accent:#2055E6; --accent-ink:#6E92F2;
     --shadow-card:0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.28);
+    --card-ring:rgba(255,255,255,.2);
     --shadow-pop:0 4px 12px rgba(0,0,0,.5);
   }
   [data-theme="light"]{
@@ -21,6 +22,7 @@
     --ink:#1A1A1C; --ink-2:#6E6E76; --ink-3:#ACACB2;
     --accent:#2055E6; --accent-ink:#2055E6;
     --shadow-card:0 1px 2px rgba(20,20,30,.06), 0 8px 24px rgba(20,20,30,.07);
+    --card-ring:rgba(20,20,22,.16);
     --shadow-pop:0 4px 16px rgba(20,20,30,.12);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -203,12 +205,12 @@
 
   /* ═══ GRID ═══ */
   .scroll{flex:1;overflow-y:auto;padding:14px 24px 64px}
-  .grid{columns:3;column-gap:16px}
+  .grid{columns:3;column-gap:20px}
   @media(min-width:1560px){.grid{columns:4}}
   @media(max-width:1020px){.grid{columns:2}}
   @media(max-width:580px){
-    .grid{columns:2;column-gap:10px}
-    .card{margin-bottom:10px;border-radius:9px}
+    .grid{columns:2;column-gap:12px}
+    .card{margin-bottom:12px;border-radius:9px}
     .band .nm{font-size:13px}
     .card.n3 .band .nm,.card.n4 .band .nm{font-size:12px}
     .band .hx{font-size:9px;letter-spacing:.09em}
@@ -221,11 +223,11 @@
     .card-act{opacity:1;transform:none}
   }
   .card{
-    break-inside:avoid;margin-bottom:16px;border-radius:10px;overflow:hidden;
+    break-inside:avoid;margin-bottom:20px;border-radius:10px;overflow:hidden;
     display:flex;flex-direction:column;position:relative;
-    border:1px solid var(--line);box-shadow:var(--shadow-card);transition:box-shadow .18s;
+    box-shadow:0 0 0 1px var(--card-ring), var(--shadow-card);transition:box-shadow .18s;
   }
-  .card:hover{box-shadow:var(--shadow-pop)}
+  .card:hover{box-shadow:0 0 0 1px var(--card-ring), var(--shadow-pop)}
   .band{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     padding:24px 14px;cursor:pointer;text-align:center;transition:filter .12s;
@@ -235,7 +237,7 @@
     font-family:'Poppins',sans-serif;font-weight:800;text-transform:uppercase;
     font-size:clamp(15px,1.4vw,19px);letter-spacing:.01em;line-height:1.15;
   }
-  .band .hx{font-size:10.5px;margin-top:6px;letter-spacing:.12em;font-weight:500;opacity:.92}
+  .band .hx{font-size:10.5px;margin-top:6px;letter-spacing:.12em;font-weight:600;opacity:1}
   .card.n2 .band{min-height:140px}
   .card.n3 .band{min-height:92px;padding:18px 14px}
   .card.n4 .band{min-height:76px;padding:14px 14px}
@@ -244,7 +246,7 @@
   .card.grad{min-height:380px;justify-content:center;gap:30px;padding:42px 18px}
   .card.grad .g-item{cursor:pointer;text-align:center}
   .card.grad .g-item .nm{font-family:'Poppins',sans-serif;font-weight:800;text-transform:uppercase;font-size:clamp(15px,1.4vw,19px);letter-spacing:.01em;line-height:1.15}
-  .card.grad .g-item .hx{font-size:10.5px;margin-top:6px;letter-spacing:.12em;font-weight:500;opacity:.92}
+  .card.grad .g-item .hx{font-size:10.5px;margin-top:6px;letter-spacing:.12em;font-weight:600;opacity:1}
 
   .badge{
     position:absolute;top:8px;left:8px;font-size:8px;font-weight:600;letter-spacing:.08em;
@@ -268,6 +270,17 @@
   .copied{box-shadow:inset 0 0 0 2px var(--accent)}
 
   .empty{padding:72px 20px;text-align:center;color:var(--ink-3);font-size:13px}
+  .empty2{padding:64px 20px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .empty2 .e-h{font-size:14px;font-weight:600;color:var(--ink)}
+  .empty2 .e-b{font-size:12.5px;color:var(--ink-2);line-height:1.6;max-width:420px;margin:10px 0 18px}
+  .empty2 .e-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:18px}
+  .empty2 .e-row>span{font-size:11px;color:var(--ink-3);font-weight:500}
+  .src-divider{display:flex;align-items:center;gap:12px;margin:6px 0 16px}
+  .src-divider span{flex:1;height:1px;background:var(--line)}
+  .src-divider em{font-style:normal;font-size:11px;font-weight:500;color:var(--ink-3);white-space:nowrap}
+  .interp{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:0 0 12px;font-size:11.5px;color:var(--ink-3)}
+  .i-chip{border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11px;font-weight:500;color:var(--ink-2);background:var(--surface)}
+  .i-chip.dim{color:var(--ink-3)}
   .feed-hint{padding:22px 0 6px;text-align:center;color:var(--ink-3);font-size:11.5px;font-weight:500;letter-spacing:.04em}
 
   /* ═══ SPECS ═══ */
@@ -296,6 +309,7 @@
   .toast.show{opacity:1;transform:translateY(0)}
 
   .m-only{display:none}
+  .m-brand{font-size:14px;font-weight:600;letter-spacing:-.01em}
   .tabbar{
     display:none;position:fixed;left:0;right:0;bottom:0;z-index:60;
     background:var(--bg);border-top:1px solid var(--line);
@@ -329,6 +343,8 @@
     .side{display:none}
     .tabbar{display:flex}
     .m-only{display:grid}
+    .m-brand{display:inline}
+    .topbar h2,.topbar .cnt{display:none}
     .topbar{padding:0 14px;gap:10px}
     .filterbar{padding:12px 14px 2px}
     .search input{width:170px}
@@ -354,11 +370,11 @@
       </div>
     </div>
     <div id="navWrap" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow-y:auto"></div>
-    <div class="side-foot"><span class="ver">for Dean</span><span class="ver">v1.8</span></div>
+    <div class="side-foot"><span class="ver">for Dean</span><span class="ver">v2.2</span></div>
   </aside>
   <main class="main">
     <div class="topbar">
-      <div class="ws-mark m-only"><svg viewBox="0 0 26 26"><g><rect x="10.7" y="3.8" width="4.6" height="16.4" rx="2.3" fill="#2055E6" transform="rotate(-30 13 19.5)"/><rect x="10.7" y="3.8" width="4.6" height="16.4" rx="2.3" fill="#FF8A4C" transform="rotate(30 13 19.5)"/><rect x="10.7" y="3.8" width="4.6" height="16.4" rx="2.3" fill="#A855F7"/></g></svg></div><h2 id="tabTitle"></h2><span class="cnt" id="countLbl"></span>
+      <div class="ws-mark m-only"><svg viewBox="0 0 26 26"><g><rect x="10.7" y="3.8" width="4.6" height="16.4" rx="2.3" fill="#2055E6" transform="rotate(-30 13 19.5)"/><rect x="10.7" y="3.8" width="4.6" height="16.4" rx="2.3" fill="#FF8A4C" transform="rotate(30 13 19.5)"/><rect x="10.7" y="3.8" width="4.6" height="16.4" rx="2.3" fill="#A855F7"/></g></svg></div><span class="m-only m-brand">Gamut</span><h2 id="tabTitle"></h2><span class="cnt" id="countLbl"></span>
       <div class="spacer"></div>
       <button class="icon-btn" id="shuffleBtn" title="Shuffle order (S)">
         <svg viewBox="0 0 16 16"><path d="M1.5 4.5h3l6 7h4M14.5 11.5l-2-2m2 2l-2 2M1.5 11.5h3l1.8-2.1M8.7 6.6l1.8-2.1h4M14.5 4.5l-2-2m2 2l-2 2"/></svg>
@@ -647,7 +663,7 @@ const ICONS={
 const SUN='<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.2v1.6M8 13.2v1.6M1.2 8h1.6M13.2 8h1.6M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M12.8 3.2l-1.1 1.1M4.3 11.7l-1.1 1.1"/></svg>';
 const MOON='<svg viewBox="0 0 16 16"><path d="M13.5 9.8A6 6 0 0 1 6.2 2.5a6 6 0 1 0 7.3 7.3z"/></svg>';
 const FILTERS=[['all','All'],[2,'2 Colors'],[3,'3 Colors'],[4,'4 Colors'],['g','Gradient']];
-let tab='uiux', filter='all', searchQ='', seed=0, feeding=false, popOpen=false;
+let tab='uiux', filter='all', searchQ='', seed=0, feeding=false, popOpen=false, src='all', pendingMood='';
 let aiPals=[];
 const GEN={uiux:[],poster:[],pub:[]};
 const USER={uiux:[],poster:[],pub:[]};
@@ -661,18 +677,22 @@ const rgb2hsl=(r,g,b)=>{r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.mi
 const hexHSL=h=>rgb2hsl(...hex2rgb(h));
 const avgHex=arr=>{let r=0,g=0,b=0;arr.forEach(h=>{const[x,y,z]=hex2rgb(h);r+=x;g+=y;b+=z});const n=arr.length;return'#'+[r/n,g/n,b/n].map(v=>Math.round(v).toString(16).padStart(2,'0')).join('')};
 
-function bandText(c,arr){
-  const cand=arr.filter(x=>x!==c).sort((a,b)=>contrast(c,b)-contrast(c,a))[0];
-  if(cand&&contrast(c,cand)>=1.35)return cand;
-  return lum(c)>.45?'#141414':'#FCFCFC';
+/* WCAG-aware text picking.
+   min 3.0 for the large bold name, 4.5 for the small hex line.
+   Prefer a palette color (keeps the poster look) only if it truly passes;
+   otherwise fall back to the highest-contrast neutral. */
+function pickText(bg,arr,min){
+  const cand=arr.filter(x=>x!==bg).sort((a,b)=>contrast(bg,b)-contrast(bg,a))[0];
+  if(cand&&contrast(bg,cand)>=min)return cand;
+  const ink=contrast(bg,'#FFFFFF')>=contrast(bg,'#101012')?'#FFFFFF':'#101012';
+  return ink;
 }
-function gradItemText(c,arr){
-  const others=arr.filter(x=>x!==c);
-  const back=avgHex(others.length?others:arr);
-  if(contrast(back,c)>=2.0)return c;
-  const cand=[...arr].sort((a,b)=>contrast(back,b)-contrast(back,a))[0];
-  if(cand&&contrast(back,cand)>=2.0)return cand;
-  return lum(back)>.45?'#141414':'#FCFCFC';
+function bandText(c,arr){return pickText(c,arr,3.0)}
+function bandHexText(c,arr){return pickText(c,arr,4.5)}
+function gradItemText(c,arr,min){
+  const back=avgHex(arr);
+  if(contrast(back,c)>=(min||3.0))return c;
+  return pickText(back,arr,min||3.0);
 }
 
 /* ═════════════ SEMANTIC SEARCH ═════════════ */
@@ -854,6 +874,8 @@ function findDuplicate(cols){
 const $=id=>document.getElementById(id);
 
 function libBase(cat){return[...USER[cat],...P.filter(x=>x.cat===cat),...GEN[cat]]}
+const isGen=x=>!!x.gen;
+function srcFilter(a){return src==='cur'?a.filter(x=>!isGen(x)):src==='gen'?a.filter(isGen):a}
 
 function renderNav(){
   const groups=[['library','Library'],['generate','Generate'],['reference','Reference']];
@@ -877,6 +899,7 @@ const SHORT={uiux:'UI/UX',poster:'Poster',pub:'Pub',ai:'AI',specs:'Specs'};
 
 function typeCounts(){
   let base=tab==='ai'?aiPals:libBase(tab);
+  if(tab!=='ai')base=srcFilter(base);
   if(searchQ.trim())base=base.filter(x=>matchesQuery(x,searchQ));
   const c={all:base.length,2:0,3:0,4:0,g:0};
   base.forEach(x=>c[x.t]=(c[x.t]||0)+1);
@@ -929,11 +952,14 @@ function renderFilterbar(){
             ${l}<span class="b">${cnts[v==='all'?'all':v]||0}</span>
           </button>`).join('')}
       </div>
+      ${LIB.includes(tab)?`<div style="flex:1"></div>
+      <div class="pills" id="srcPills">${[['all','All sources'],['cur','Curated'],['gen','Generated']].map(([v,l])=>`<button class="pill no-b ${src===v?'on':''}" data-s="${v}">${l}</button>`).join('')}</div>`:''}
     </div>`;
   const inp=fb.querySelector('#searchInput');
   inp.oninput=()=>{searchQ=inp.value;renderResultsOnly();refreshPillCounts()};
   fb.querySelector('#searchClear').onclick=()=>{searchQ='';renderFilterbar();renderResultsOnly()};
   fb.querySelectorAll('#filterPills .pill').forEach(b=>b.onclick=()=>{filter=b.dataset.f==='all'?'all':(b.dataset.f==='g'?'g':+b.dataset.f);render()});
+  fb.querySelectorAll('#srcPills .pill').forEach(b=>b.onclick=()=>{src=b.dataset.s;render()});
   fb.querySelector('#addBtn').onclick=openAdd;
   if(tab==='ai'){
     const pop=fb.querySelector('#aiPop');
@@ -957,6 +983,7 @@ document.addEventListener('click',()=>{
 
 function currentItems(){
   let items=tab==='ai'?aiPals:libBase(tab);
+  if(tab!=='ai')items=srcFilter(items);
   if(filter!=='all')items=items.filter(x=>String(x.t)===String(filter));
   if(searchQ.trim())items=items.filter(x=>matchesQuery(x,searchQ));
   return items;
@@ -977,18 +1004,18 @@ function cardHTML(x){
     const base=`linear-gradient(165deg, ${x.c.map((c,i)=>`${c} ${Math.round(i/(x.c.length-1)*100)}%`).join(', ')})`;
     const mesh=x.c.map((c,i)=>`radial-gradient(ellipse at ${['18% 12%','85% 40%','25% 88%','78% 92%'][i%4]}, ${c} 0%, transparent 60%)`).join(',');
     return `<div class="card grad" style="background-image:${mesh}, ${base}">${badge}${acts}
-      ${x.c.map((c,i)=>{const tc=gradItemText(c,x.c);return`
+      ${x.c.map((c,i)=>{const tc=gradItemText(c,x.c,3.0),hc=gradItemText(c,x.c,4.5);return`
         <div class="g-item" data-hex="${c}">
           <div class="nm" style="color:${tc}">${x.n[i]}</div>
-          <div class="hx mono" style="color:${tc}">HEX&nbsp;&nbsp;${c}<span class="cp">⧉</span></div>
+          <div class="hx mono" style="color:${hc}">HEX&nbsp;&nbsp;${c}<span class="cp">⧉</span></div>
         </div>`}).join('')}
     </div>`;
   }
   return `<div class="card n${x.t}">${badge}${acts}
-    ${x.c.map((c,i)=>{const tc=bandText(c,x.c);return`
+    ${x.c.map((c,i)=>{const tc=bandText(c,x.c),hc=bandHexText(c,x.c);return`
       <div class="band" style="background:${c}" data-hex="${c}">
         <div class="nm" style="color:${tc}">${x.n[i]}</div>
-        <div class="hx mono" style="color:${tc}">HEX&nbsp;&nbsp;${c}<span class="cp">⧉</span></div>
+        <div class="hx mono" style="color:${hc}">HEX&nbsp;&nbsp;${c}<span class="cp">⧉</span></div>
       </div>`}).join('')}
   </div>`;
 }
@@ -1010,6 +1037,35 @@ function specsHTML(){
   </div>`;
 }
 
+function interpTokens(){
+  if(!searchQ.trim())return null;
+  const tks=searchQ.toLowerCase().split(/\s+/).filter(Boolean);
+  const fams=[],names=[];
+  tks.forEach(tk=>{const r=ALIAS[tk]||tk;if(FAMILY[r])fams.push(r);else names.push(tk)});
+  return {fams,names};
+}
+function interpHTML(){
+  const t=interpTokens();
+  if(!t||(!t.fams.length&&!t.names.length))return '';
+  const chips=[...t.fams.map(x=>`<span class="i-chip">${x}</span>`),
+               ...t.names.map(x=>`<span class="i-chip dim">“${x}” in names</span>`)].join('');
+  return `<div class="interp">Reading it as ${chips}</div>`;
+}
+function emptyHTML(){
+  if(tab==='ai')return `<div class="empty">Hit Generate or Random above.</div>`;
+  if(!searchQ.trim())return `<div class="empty">No combinations match.</div>`;
+  const pool=srcFilter(libBase(tab)).filter(x=>filter==='all'||String(x.t)===String(filter));
+  const sugg=searchQ.toLowerCase().split(/\s+/).filter(Boolean)
+    .map(tk=>[tk,pool.filter(x=>matchesQuery(x,tk)).length])
+    .filter(([,n])=>n>0).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const spark='<svg class="spark" viewBox="0 0 16 16"><path d="M8 1.5l1.4 4.1L14 7l-4.6 1.4L8 12.5 6.6 8.4 2 7l4.6-1.4z"/><path d="M12.8 11.4l.5 1.5 1.5.5-1.5.5-.5 1.5-.5-1.5-1.5-.5 1.5-.5z"/></svg>';
+  return `<div class="empty2">
+    <div class="e-h">No matches for “${searchQ}”</div>
+    <div class="e-b">The archive covers ${P.length}+ combinations, searchable in English and Korean. Broaden the mood, or generate from this query.</div>
+    ${sugg.length?`<div class="e-row"><span>Close in meaning</span>${sugg.map(([t,n])=>`<button class="pill" data-close="${t}">${t}<span class="b">${n}</span></button>`).join('')}</div>`:''}
+    <button class="btn btn-secondary" id="genFromQ">${spark}Generate from this query</button>
+  </div>`;
+}
 function renderResultsOnly(){
   const sc=$('scroll');
   if(tab==='specs'){
@@ -1026,15 +1082,27 @@ function renderResultsOnly(){
     items=[...mine,...shuffled(items.filter(x=>!x.mine))];
   }
   $('countLbl').textContent=`${items.length} combinations`;
-  const feedHint=!searchQ.trim()?`<div class="feed-hint">Scroll for more — the archive is endless ∞</div>`:'';
-  sc.innerHTML=items.length
-    ? `<div class="grid">${items.map(cardHTML).join('')}</div>${feedHint}`
-    : `<div class="empty">${tab==='ai'?'Hit Generate or Random above.':'No combinations match.'}</div>`;
+  const feedHint=!searchQ.trim()?`<div class="feed-hint">Scroll for more</div>`:'';
+  let body;
+  if(!items.length){
+    body=emptyHTML();
+  }else if(tab==='ai'||searchQ.trim()||src!=='all'){
+    body=`<div class="grid">${items.map(cardHTML).join('')}</div>${feedHint}`;
+  }else{
+    const cur=items.filter(x=>!isGen(x)),gen=items.filter(isGen);
+    body=`<div class="grid">${cur.map(cardHTML).join('')}</div>`
+      +(gen.length?`<div class="src-divider"><span></span><em>Generated &amp; remixed · ${gen.length}</em><span></span></div><div class="grid">${gen.map(cardHTML).join('')}</div>`:'')
+      +feedHint;
+  }
+  sc.innerHTML=interpHTML()+body;
   sc.querySelectorAll('[data-hex]').forEach(el=>el.onclick=()=>{
     copy(el.dataset.hex);
     el.classList.add('copied');setTimeout(()=>el.classList.remove('copied'),480);
   });
   sc.querySelectorAll('[data-copyall]').forEach(el=>el.onclick=e=>{e.stopPropagation();copy(el.dataset.copyall)});
+  sc.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{searchQ=b.dataset.close;renderFilterbar();renderResultsOnly();refreshPillCounts()});
+  const gq=document.getElementById('genFromQ');
+  if(gq)gq.onclick=()=>{pendingMood=searchQ;searchQ='';tab='ai';filter='all';popOpen=true;render();const pp=document.getElementById('aiPop');const inp=pp&&pp.querySelector('#aiInput');if(inp)inp.value=pendingMood;};
   sc.querySelectorAll('[data-remove]').forEach(el=>el.onclick=e=>{
     e.stopPropagation();
     const id=el.dataset.remove;
@@ -1057,6 +1125,7 @@ function render(){
 /* infinite feed — every content tab */
 $('scroll').addEventListener('scroll',()=>{
   if(tab==='specs'||feeding||searchQ.trim())return;
+  if(LIB.includes(tab)&&src==='cur')return;
   const el=$('scroll');
   if(el.scrollTop+el.clientHeight>=el.scrollHeight-480){
     feeding=true;
