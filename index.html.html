@@ -77,7 +77,7 @@
   .topbar .spacer{flex:1}
 
   /* filter zone */
-  .filterbar{flex-shrink:0;display:flex;flex-direction:column;gap:10px;padding:16px 24px 2px}
+  .filterbar{flex-shrink:0;display:flex;flex-direction:column;gap:12px;padding:16px 24px 14px;border-bottom:1px solid var(--line)}
   .fb-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .pills{display:flex;gap:6px;flex-wrap:wrap}
   .pill{
@@ -204,7 +204,7 @@
   .m-preview div{flex:1}
 
   /* ═══ GRID ═══ */
-  .scroll{flex:1;overflow-y:auto;padding:14px 24px 64px}
+  .scroll{flex:1;overflow-y:auto;padding:20px 24px 64px}
   .grid{columns:3;column-gap:20px}
   @media(min-width:1560px){.grid{columns:4}}
   @media(max-width:1020px){.grid{columns:2}}
@@ -346,9 +346,9 @@
     .m-brand{display:inline}
     .topbar h2,.topbar .cnt{display:none}
     .topbar{padding:0 14px;gap:10px}
-    .filterbar{padding:12px 14px 2px}
+    .filterbar{padding:12px 14px 12px}
     .search input{width:170px}
-    .scroll{padding:14px 14px 110px}
+    .scroll{padding:18px 14px 110px}
     .pills{flex-wrap:nowrap;overflow-x:auto;max-width:100%;gap:16px;padding-bottom:2px;scrollbar-width:none}
     .pills::-webkit-scrollbar{display:none}
     .pill{border:none;background:transparent;padding:0 1px;height:32px;border-radius:0;font-size:13px}
@@ -370,7 +370,7 @@
       </div>
     </div>
     <div id="navWrap" style="display:flex;flex-direction:column;flex:1;min-height:0;overflow-y:auto"></div>
-    <div class="side-foot"><span class="ver">for Dean</span><span class="ver">v2.2</span></div>
+    <div class="side-foot"><span class="ver">for Dean</span><span class="ver">v2.5</span></div>
   </aside>
   <main class="main">
     <div class="topbar">
@@ -751,7 +751,17 @@ const nearestName=hx=>{const[r,g,b]=hex2rgb(hx);let best='Untitled',d=1e9;for(co
 
 /* ═════════════ GENERATORS ═════════════ */
 const R=(a,b)=>a+Math.random()*(b-a);
-const okAdjacent=cols=>{for(let i=0;i<cols.length-1;i++){if(contrast(cols[i],cols[i+1])<1.28)return false}return true};
+const okAdjacent=cols=>{
+  for(let i=0;i<cols.length-1;i++){
+    const a=cols[i],b=cols[i+1];
+    if(contrast(a,b)>=1.28)continue;
+    const [h1,s1]=hexHSL(a),[h2,s2]=hexHSL(b);
+    const dh=Math.min(Math.abs(h1-h2),360-Math.abs(h1-h2));
+    if(dh>=40&&s1>25&&s2>25)continue;
+    return false;
+  }
+  return true;
+};
 function dedupeNames(names,cols){
   const seen={};
   return names.map((n,i)=>{
@@ -773,7 +783,7 @@ const POOLS={
     {t:3,f:h=>[[h,R(30,45),R(93,96)],[h,R(55,70),R(50,58)],[h,R(45,60),R(22,30)]]},
     {t:3,f:h=>[[h,R(10,18),R(6,10)],[(h+R(-15,15)),R(75,95),R(56,64)],[h,R(10,20),R(62,72)]]},
     {t:4,f:()=>[[R(140,150),R(60,75),R(45,55)],[R(35,45),R(85,95),R(52,60)],[R(0,8),R(70,85),R(56,62)],[R(210,220),R(75,90),R(55,62)]]},
-    {t:4,f:h=>[[h,R(5,12),R(5,8)],[h,R(5,12),R(11,13)],[h,R(5,12),R(16,19)],[h,R(6,14),R(26,32)]]},
+    {t:4,f:h=>[[h,R(5,12),R(4,7)],[h,R(5,12),R(15,19)],[h,R(5,12),R(28,33)],[h,R(6,14),R(44,50)]]},
     {t:'g',f:h=>[[h,R(55,75),R(52,60)],[h+R(25,45),R(50,70),R(58,66)],[h+R(50,80),R(45,65),R(64,72)]]},
     {t:'g',f:h=>[[h,R(60,80),R(70,78)],[h+R(40,80),R(60,80),R(58,66)],[h+R(120,180),R(55,75),R(52,60)]]},
     {t:'g',f:h=>[[h,R(70,90),R(50,58)],[(h+R(30,60)),R(65,85),R(56,64)],[h+R(-10,10),R(20,35),R(94,97)]]},
@@ -814,8 +824,10 @@ function genFor(cat,type){
     if(r.t!=='g'&&!okAdjacent(cols))continue;
     return {cat,t:r.t==='g'?'g':cols.length,c:cols,n:dedupeNames(cols.map(nearestName),cols),gen:'Gen'};
   }
-  const cols=[hsl2hex(Math.random()*360,70,55),hsl2hex(Math.random()*360,20,92)];
-  return {cat,t:2,c:cols,n:dedupeNames(cols.map(nearestName),cols),gen:'Gen'};
+  const n=type==='g'?3:(type?+type:2);
+  const h0=Math.random()*360;
+  const cols=Array.from({length:n},(_,i)=>hsl2hex(h0+i*(360/n)+R(-12,12),R(55,78),i===n-1?R(88,94):R(36,58)+i*7));
+  return {cat,t:type==='g'?'g':n,c:cols,n:dedupeNames(cols.map(nearestName),cols),gen:'Gen'};
 }
 function randomPalette(){
   const cat=LIB[Math.floor(Math.random()*3)];
@@ -824,11 +836,17 @@ function randomPalette(){
 }
 /* guarantee ≥100 per type per category */
 function topUp(){
+  const QUOTA={
+    uiux:  {2:212, 3:158, 4:96,  g:124},
+    poster:{2:186, 3:142, 4:88,  g:131},
+    pub:   {2:174, 3:149, 4:92,  g:118}
+  };
   for(const cat of LIB){
     for(const ty of [2,3,4,'g']){
+      const goal=QUOTA[cat][ty];
       const have=P.filter(x=>x.cat===cat&&String(x.t)===String(ty)).length
         +GEN[cat].filter(x=>String(x.t)===String(ty)).length;
-      for(let i=have;i<100;i++)GEN[cat].push(genFor(cat,ty));
+      for(let i=have;i<goal;i++)GEN[cat].push(genFor(cat,ty));
     }
   }
 }
